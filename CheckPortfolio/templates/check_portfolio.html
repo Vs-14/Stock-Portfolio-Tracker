@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user.username}}'s Portfolio</title>
+    <link rel="stylesheet" href="{% static 'check_portfolio.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script async src="{% static 'profit-loss.js' %}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'home' %}">Stock Portfolio Tracker</a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'StockTracker' %}">Stock Tracker</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              {% else %}
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+              {% endif %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>{{user.username}}'s Portfolio</h1>
+        </header>
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Purchase Price</th>
+                    <th>Quantity</th>
+                    <th>Time of Purchase</th>
+                    <th>Total Value of Purchase</th>
+                    <th>Current Price</th>
+                    <th>Current Total Value</th>
+                    <th>Change Percentage</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in data %}
+                <tr>
+                    <td>{{entry.symbol}}</td>
+                    <td>{{entry.p}}</td>
+                    <td>{{entry.q}}</td>
+                    <td>{{entry.date}}</td>
+                    <td>{{entry.total}}</td>
+                    <td>{{entry.current_price}}</td>
+                    <td>{{entry.current_total}}</td>
+                    <td>{{entry.change}}</td>
+                    <td>
+                        <form method="post" action="{% url 'sell' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="entry_symbol" value="{{ entry.symbol }}">
+                            <input type="hidden" name="entry_p" value="{{ entry.p }}">
+                            <input type="hidden" name="entry_q" value="{{ entry.q }}">
+                            <input type="hidden" name="entry_current_price" value="{{ entry.current_price }}">
+                            <input type="hidden" name="entry_uid" value="{{ entry.uid }}">
+                            <button class="btn" type="submit">Sell</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

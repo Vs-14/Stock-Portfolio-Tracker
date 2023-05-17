@@ -1,0 +1,73 @@
+.header{
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* hide the default radio button */
+input[type="radio"] {
+    display: none;
+    padding-bottom: 15px;
+  }
+  
+  /* style the label to look like a button */
+  label {
+    display: block;
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #008CBA;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    width: 250px;
+    height: 100px;
+    box-sizing: border-box;
+  }
+  
+  /* style the label when the radio button is checked */
+  input[type="radio"]:checked + label {
+    background-color: #4CAF50;
+  }
+  
+  /* style the container */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  
+  /* style the radio button box */
+  .radio-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #008CBA;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 800px;
+  }
+
+  .submit-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  button[type="submit"] {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: green;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  

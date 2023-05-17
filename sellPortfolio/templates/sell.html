@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'sell.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script async src="{% static 'sell.js' %}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'home' %}">Stock Portfolio Tracker</a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'StockTracker' %}">Stock Tracker</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              {% else %}
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+              {% endif %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+    <div class="form-wrapper">
+        <h1>Sell Stock</h1>
+        <form method="POST" action="{% url 'sold' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="symbol">Chosen Stock:</label>
+                <input type="text" name="symbol" value="{{ symbol }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="buying_price">Purchased Price:</label>
+                <input class="p_price" type="number" name="buying_price" value="{{ p }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="current_price">Current Price:</label>
+                <input class="cp_price" type="number" name="current_price" value="{{ cp }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="quantity">No. Of Shares To Sell:0</label>
+                <p><input class="quantity" type="range" name="quantity" min="0" max="{{ q }}" value="0"></p>
+            </div>
+            <div class="form-group">
+                <span class="change">Value: $0.00</span>
+            </div>
+            <button class="btn" type="submit">Sell</button>
+            <input type="hidden" name="uid" value="{{ uid }}">
+        </form>
+    </div>
+</body>
+</html>
