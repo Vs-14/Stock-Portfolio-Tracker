@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from portfolioSymbol.models import StockPurchase
 import pytz
+from keys import MY_KEY
 
 from alpha_vantage.timeseries import TimeSeries
-api_key = "IUAPAEP4N3KFQ5QW"
+api_key = MY_KEY
 
 # Create your views here.
 def checkPortfolio(request):

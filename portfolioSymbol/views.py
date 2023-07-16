@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from alpha_vantage.timeseries import TimeSeries
-api_key = "IUAPAEP4N3KFQ5QW"
 from .forms import StockPurchaseForm
+from keys import MY_KEY
+api_key = MY_KEY
 
 # Create your views here.
 def portfolio_symbol(request):
